@@ -1,5 +1,7 @@
 package br.com.TaskManager.controllers;
 
+import br.com.TaskManager.repositories.UserRepository;
+import br.com.TaskManager.services.UserService;
 import br.com.TaskManager.entities.User;
 import br.com.TaskManager.controllers.request.UsuarioSignupRequest;
 
@@ -25,7 +27,7 @@ public class UserController {
         if(usuario.isPresent()){
             return new ResponseEntity<>("Usuario jÃ¡ possui cadastro",HttpStatus.BAD_REQUEST);
         }
-        service.signup(request.getLogin(), request.getSenha());
+        service.signup(request);
         return new ResponseEntity<>("Cadastro realizado com scesso", HttpStatus.CREATED);
     }
 

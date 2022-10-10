@@ -17,6 +17,15 @@ public class User {
     @Column(name = "senha")
     private String senha;
 
+    public User(){
+
+    }
+    public User(String nome, String senha) {
+        this.nome = nome;
+        this.senha = senha;
+    }
+
+
 
     public Long getId() {
         return id;
