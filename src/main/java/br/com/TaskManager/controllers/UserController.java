@@ -2,7 +2,7 @@ package br.com.TaskManager.controllers;
 
 import br.com.TaskManager.repositories.UserRepository;
 import br.com.TaskManager.services.UserService;
-import br.com.TaskManager.entities.User;
+import br.com.TaskManager.entities.Users;
 import br.com.TaskManager.controllers.request.UsuarioSignupRequest;
 
 
@@ -26,21 +26,30 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-    @Autowired
-    private UserRepository repository;
-    @Autowired
-    private UserService service;
+
+    final UserService userService;
+
+    public UserController(UserService userService){
+        this.userService = userService;
+    }
+
+
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody UsuarioSignupRequest request){
-        Optional<User> usuario = repository.findByUser(new User(request.getLogin(),request.getSenha()));
+        //Optional<User> usuario = repository.findById(Long.parseLong(request.getLogin()));
+       Optional<Users> usuario = userService.getUser(request);
         if(usuario.isPresent()){
             return new ResponseEntity<>("Usuario jÃ¡ possui cadastro",HttpStatus.BAD_REQUEST);
         }
-        service.signup(request);
-        return new ResponseEntity<>("Cadastro realizado com scesso", HttpStatus.CREATED);
-    }
+        /*
+        service.save(request);
+        */
 
+        return new ResponseEntity<>("Cadastro realizado com scesso", HttpStatus.CREATED);
+
+    }
+//    TODO - implemenetar endpoints de usuário
 //    @GetMapping("/login")
 //    @PutMapping("/esqueci-senha")
 //    @DeleteMapping()

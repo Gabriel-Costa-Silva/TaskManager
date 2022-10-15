@@ -1,12 +1,14 @@
 package br.com.TaskManager.entities;
 
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "User")
-public class User implements Serializable {
+@Table(name = "Users")
+public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
@@ -18,16 +20,6 @@ public class User implements Serializable {
 
     @Column(name = "senha")
     private String senha;
-
-    public User(){
-
-    }
-    public User(String nome, String senha) {
-        this.nome = nome;
-        this.senha = senha;
-    }
-
-
 
     public Long getId() {
         return id;
