@@ -1,7 +1,5 @@
 package br.com.TaskManager.repositories;
 
-import br.com.TaskManager.controllers.dtos.UserDTO;
-
 import br.com.TaskManager.entities.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,8 +10,10 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<Users,Long> {
-    @Query("SELECT * FROM user WHERE nome = nome and senha = senha")
-    Optional<Users> getUser(@Param("nome") String nome,@Param("senha") String senha);
+    @Query(value = "SELECT * FROM user WHERE nome = nome and senha = senha")
+    default Optional<Users> getUser(@Param("nome") String nome, @Param("senha") String senha) {
+        return null;
+    }
     //User save(User user);
 
 }
