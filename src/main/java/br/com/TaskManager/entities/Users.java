@@ -3,23 +3,30 @@ package br.com.TaskManager.entities;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Users")
-public class Users implements Serializable {
+public class Users implements Serializable
+{
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(name = "nome")
+    @Column(nullable = false, unique = true)
     private String nome;
-
-    @Column(name = "senha")
+    @Column(nullable = false, unique = true)
     private String senha;
+
+    public Users()
+    {
+
+    }
+    public Users(String nome, String senha){
+        this.nome = nome;
+        this.senha =senha;
+    }
 
     public Long getId() {
         return id;
@@ -41,5 +48,14 @@ public class Users implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
     }
 }

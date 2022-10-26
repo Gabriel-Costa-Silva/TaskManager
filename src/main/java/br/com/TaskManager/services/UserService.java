@@ -13,8 +13,9 @@ import java.util.Optional;
 public class UserService {
     UserRepository userRepository;
 
-    public Optional<Users> getUser(UsuarioSignupRequest request ) {
-        Optional<Users> user = userRepository.getUser(request.getLogin(), request.getSenha());
+    public Users getUser(UsuarioSignupRequest request ) {
+       Users user = userRepository.findUsersByNomeAndSenha(request.getLogin(), request.getSenha());
+       //Users user = users[0];
         if(user!=null)
             return user;
         return null;

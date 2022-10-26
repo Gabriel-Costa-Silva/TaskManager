@@ -38,8 +38,8 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody UsuarioSignupRequest request){
         //Optional<User> usuario = repository.findById(Long.parseLong(request.getLogin()));
-       Optional<Users> usuario = userService.getUser(request);
-        if(usuario.isPresent()){
+       Users usuario = userService.getUser(request);
+        if(!usuario.equals(null)){
             return new ResponseEntity<>("Usuario jÃ¡ possui cadastro",HttpStatus.BAD_REQUEST);
         }
         /*

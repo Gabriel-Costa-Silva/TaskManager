@@ -1,19 +1,15 @@
 package br.com.TaskManager.repositories;
 
 import br.com.TaskManager.entities.Users;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface UserRepository extends JpaRepository<Users,Long> {
-    @Query(value = "SELECT * FROM user WHERE nome = nome and senha = senha")
-    default Optional<Users> getUser(@Param("nome") String nome, @Param("senha") String senha) {
-        return null;
-    }
+public interface UserRepository extends CrudRepository<Users,Long> {
+    @Query("select u from Users u where u.nome = :nome and u.senha = :senha")
+    Users findUsersByNomeAndSenha (@Param("nome") String nome, @Param("senha") String senha);
     //User save(User user);
 
 }
