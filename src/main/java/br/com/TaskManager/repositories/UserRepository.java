@@ -6,10 +6,23 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends CrudRepository<Users,Long> {
+
+    //get
     @Query("select u from Users u where u.nome = :nome and u.senha = :senha")
-    Users findUsersByNomeAndSenha (@Param("nome") String nome, @Param("senha") String senha);
-    //User save(User user);
+    Optional<Users> findUsersByNomeAndSenha (@Param("nome") String nome, @Param("senha") String senha);
+    @Query("select u from Users u where u.id = :id")
+    Optional<Users> findUsersById(@Param("id") Long id);
+
+    //post
+    Users save(Users user);
+
+
+    //put
+
+    //delete
 
 }

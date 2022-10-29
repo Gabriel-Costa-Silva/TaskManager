@@ -1,5 +1,6 @@
 package br.com.TaskManager.controllers;
 
+import br.com.TaskManager.controllers.response.UserLogged;
 import br.com.TaskManager.repositories.UserRepository;
 import br.com.TaskManager.services.UserService;
 import br.com.TaskManager.entities.Users;
@@ -27,30 +28,51 @@ import java.util.Optional;
 @RequestMapping("/api/user")
 public class UserController {
 
-    final UserService userService;
+    UserService userService;
 
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
 
+    @PostMapping("/signin") //se cadastrar
+    public ResponseEntity<String> signin(@RequestBody UsuarioSignupRequest request) {
 
-    @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody UsuarioSignupRequest request){
-        //Optional<User> usuario = repository.findById(Long.parseLong(request.getLogin()));
-       Users usuario = userService.getUser(request);
-        if(!usuario.equals(null)){
-            return new ResponseEntity<>("Usuario jÃ¡ possui cadastro",HttpStatus.BAD_REQUEST);
+        UserLogged usuario = userService.getUser(request);
+        if (usuario.equals(null)) {
+            userService.save(request);
+            return new ResponseEntity<>("Cadastro realizado com scesso", HttpStatus.ACCEPTED);
+
         }
-        /*
-        service.save(request);
-        */
-
-        return new ResponseEntity<>("Cadastro realizado com scesso", HttpStatus.CREATED);
+        return new ResponseEntity<>("Usuario não encontrado", HttpStatus.BAD_REQUEST);
 
     }
-//    TODO - implemenetar endpoints de usuário
-//    @GetMapping("/login")
-//    @PutMapping("/esqueci-senha")
-//    @DeleteMapping()
+
+    @PostMapping("/signup") //se logar
+    public ResponseEntity<UserLogged> signup(@RequestBody UsuarioSignupRequest request) {
+        UserLogged userLogged = userService.getUser(request);
+        if(!userLogged.equals(null)) {
+            return new ResponseEntity<UserLogged>(userLogged,HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<UserLogged>(new UserLogged(Long.parseLong("0"), request.getLogin(), request.getSenha()), HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/signout") //se deslogar
+    public ResponseEntity<String> signout(@RequestBody UserLogged userLogged){
+
+        return new ResponseEntity<String>("Usuario deslogado",HttpStatus.ACCEPTED);
+    }
+
+
 }
+
+//    TODO - implemenetar endpoints de usuário
+
+//    @PutMapping("/esqueci-senha")
+
+//    @DeleteMapping()
+
+    //POST	/api/auth/signup	signup new account
+    //POST	/api/auth/signin	login an account
+    //POST	/api/auth/signout	logout the account
+
