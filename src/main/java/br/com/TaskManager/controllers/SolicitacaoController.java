@@ -3,12 +3,12 @@ package br.com.TaskManager.controllers;
 public class SolicitacaoController {
 
 
-    //get
+    //get (findAll)
 
     //findById
 
     //save
 
     //delete
-    
+
 }
