@@ -20,10 +20,8 @@ public class ComentarioPostagemService {
     @Autowired
     ComentarioPostagemRepository comentarioPostagemRepository;
 
-    @Autowired
     PostagemService postagemService;
 
-    @Autowired
     UsuarioService usuarioService;
 
     public List<ComentarioPostagemResponse> findAll() {
@@ -111,7 +109,7 @@ public class ComentarioPostagemService {
 
     public List<ComentarioPostagemResponse> findByUsuarioId(Long idUsuario) {
         List<ComentarioPostagemResponse>  listaComentarioResponse = new ArrayList<>();
-        List<ComentarioPostagem> listaComentario = new ArrayList<>();
+        List<ComentarioPostagem> listaComentario;
         try {
             listaComentario = comentarioPostagemRepository.findAllbyUsuarioId(idUsuario);
         }catch(Exception e){

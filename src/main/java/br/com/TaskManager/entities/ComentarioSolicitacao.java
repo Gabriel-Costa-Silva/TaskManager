@@ -1,6 +1,8 @@
 package br.com.TaskManager.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,7 +10,9 @@ import java.util.Date;
 
 @Data
 @Entity
+@AllArgsConstructor
 @Table(name = "Postagem")
+@NoArgsConstructor
 public class ComentarioSolicitacao implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -32,4 +36,6 @@ public class ComentarioSolicitacao implements Serializable
 
     @Column(nullable = false, unique = false)
     private Date dt_ultima_atualizacao_comentario_solicitacao;
+
+
 }
