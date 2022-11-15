@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class DepartamentoRequest {
+
     @JsonProperty
     private String departamento;
 

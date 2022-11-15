@@ -1,8 +1,11 @@
 package br.com.TaskManager.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Data
 @Entity
 @Table(name = "Funcao")
 public class Usuario implements Serializable
