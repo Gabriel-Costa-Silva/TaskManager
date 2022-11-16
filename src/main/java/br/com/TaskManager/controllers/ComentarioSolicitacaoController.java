@@ -14,7 +14,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/comentariopostagem")
+@RequestMapping("/api/comentariosolicitacao")
 public class ComentarioSolicitacaoController {
 
     ComentarioSolicitacaoService comentarioSolicitacaoService;
