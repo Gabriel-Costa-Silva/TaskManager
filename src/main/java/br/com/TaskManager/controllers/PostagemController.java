@@ -5,6 +5,7 @@ import br.com.TaskManager.controllers.request.PostagemRequest;
 import br.com.TaskManager.controllers.response.FuncaoResponse;
 import br.com.TaskManager.controllers.response.PostagemResponse;
 import br.com.TaskManager.services.FuncaoService;
+import br.com.TaskManager.services.PostagemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class PostagemController {
     //findById
     @RequestMapping(value = "/{idPostagem}",method = RequestMethod.GET)
     ResponseEntity<PostagemResponse> findPostagemById(@RequestParam Long idPostagem){
-        PostagemResponse postagemResponse = postagemService.findPostagemById(idPostagem);
+        PostagemResponse postagemResponse = postagemService.findPostagemResponseById(idPostagem);
         if(postagemResponse==null) {
             return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
         }

@@ -23,8 +23,6 @@ public class Funcao implements Serializable
     @Column(nullable = false, unique = false)
     private String ds_funcao;
 
-    @Column(nullable = false,unique = false)
-    private Long id_departamento;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_departamento", referencedColumnName = "id_departamento")

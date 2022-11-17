@@ -68,7 +68,7 @@ public class ComentarioPostagemService {
     public void save(ComentarioPostagemRequest request) throws Exception {
 
         Usuario usuario = usuarioService.findById(request.getIdUsuario());
-        Postagem postagem = postagemService.findById(request.getIdPostagem());
+        Postagem postagem = postagemService.findPostagemById(request.getIdPostagem());
 
         comentarioPostagemRepository.save(new ComentarioPostagem(
                 request.getIdPostagem(),
