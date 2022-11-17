@@ -80,9 +80,50 @@ public class ComentarioSolicitacaoService {
         comentarioSolicitacaoRepository.deleteById(idComentarioSolicitacao);
     }
 
-    public List<ComentarioSolicitacaoResponse> findBySolicitacaoId(Long idPostagem) {
+    public List<ComentarioSolicitacaoResponse> findBySolicitacaoId(Long idSolicitacao) {
+        List<ComentarioSolicitacaoResponse>  listaSolicitacaoResponse = new ArrayList<>();
+        List<ComentarioSolicitacao> listaComentarioSolicitacao;
+        try {
+            listaComentarioSolicitacao = ComentarioSolicitacaoRepository.findAllBySolicitacaoId(idSolicitacao);
+        }catch(Exception e){
+            return listaSolicitacaoResponse;
+        }
+        for(ComentarioSolicitacao comentarioSolicitacao : listaComentarioSolicitacao){
+
+            listaSolicitacaoResponse.add(new ComentarioSolicitacaoResponse(
+                    comentarioSolicitacao.getId_comentario_solicitacao() ,
+                    comentarioSolicitacao.getSolicitacao().getId_solicitacao(),
+                    comentarioSolicitacao.getTxt_comentario_solicitacao(),
+                    comentarioSolicitacao.getUsuario().getId_usuario(),
+                    comentarioSolicitacao.getDt_criacao_comentario_solicitacao(),
+                    comentarioSolicitacao.getDt_ultima_atualizacao_comentario_solicitacao()
+            ));
+        }
+
+        return listaSolicitacaoResponse;
+
     }
 
     public List<ComentarioSolicitacaoResponse> findByUsuarioId(Long idUsuario) {
+        List<ComentarioSolicitacaoResponse>  listaSolicitacaoResponse = new ArrayList<>();
+        List<ComentarioSolicitacao> listaComentarioSolicitacao;
+        try {
+            listaComentarioSolicitacao = ComentarioSolicitacaoRepository.findAllByUsuarioId(idUsuario);
+        }catch(Exception e){
+            return listaSolicitacaoResponse;
+        }
+        for(ComentarioSolicitacao comentarioSolicitacao : listaComentarioSolicitacao){
+
+            listaSolicitacaoResponse.add(new ComentarioSolicitacaoResponse(
+                    comentarioSolicitacao.getId_comentario_solicitacao() ,
+                    comentarioSolicitacao.getSolicitacao().getId_solicitacao(),
+                    comentarioSolicitacao.getTxt_comentario_solicitacao(),
+                    comentarioSolicitacao.getUsuario().getId_usuario(),
+                    comentarioSolicitacao.getDt_criacao_comentario_solicitacao(),
+                    comentarioSolicitacao.getDt_ultima_atualizacao_comentario_solicitacao()
+            ));
+        }
+
+        return listaSolicitacaoResponse;
     }
 }
