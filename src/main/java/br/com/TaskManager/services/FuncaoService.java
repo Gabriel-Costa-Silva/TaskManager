@@ -22,7 +22,7 @@ public class FuncaoService {
                 listaFuncaoResponse.add(new FuncaoResponse(
                    funcao.getId_funcao(),
                     funcao.getDs_funcao(),
-                    funcao.getId_departamento()
+                    funcao.getDepartamento().getId_departamento()
                 ));
             }
         }catch(Exception e){
@@ -40,7 +40,7 @@ public class FuncaoService {
             if(funcao.isPresent()) {
                  funcaoResponse = new FuncaoResponse(funcao.get().getId_funcao(),
                         funcao.get().getDs_funcao(),
-                        funcao.get().getId_departamento());
+                        funcao.get().getDepartamento().getId_departamento());
             }
 
         }catch(Exception e)
@@ -66,7 +66,7 @@ public class FuncaoService {
                 listaFuncaoResponse.add(new FuncaoResponse(
                         funcao.getId_funcao(),
                         funcao.getDs_funcao(),
-                        funcao.getId_departamento()
+                        funcao.getDepartamento().getId_departamento()
                 ));
             }
         }catch(Exception e){

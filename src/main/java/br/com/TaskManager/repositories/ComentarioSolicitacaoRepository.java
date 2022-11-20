@@ -11,7 +11,7 @@ import java.util.List;
 public interface ComentarioSolicitacaoRepository extends JpaRepository<ComentarioSolicitacao, Long> {
 
     @Query("select p from ComentarioSolicitacao p where p.id_solicitacao = :id_solicitacao")
-    List<ComentarioPostagem> findAllBySolicitacaoId(@Param("id_solicitacao")Long id_solicitacao);
+    List<ComentarioSolicitacao> findAllBySolicitacaoId(@Param("id_solicitacao")Long id_solicitacao);
     @Query("select p from ComentarioSolicitacao p where p.id_usuario = :id_usuario")
-    List<ComentarioPostagem> findAllByUsuarioId(@Param("id_usuario")Long idUsuario);
+    List<ComentarioSolicitacao> findAllByUsuarioId(@Param("id_usuario")Long idUsuario);
 }

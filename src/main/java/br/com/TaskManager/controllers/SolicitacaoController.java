@@ -1,5 +1,14 @@
 package br.com.TaskManager.controllers;
 
+import br.com.TaskManager.controllers.request.SolicitacaoRequest;
+import br.com.TaskManager.controllers.response.SolicitacaoResponse;
+import br.com.TaskManager.services.SolicitacaoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 public class SolicitacaoController {
 
 
@@ -11,7 +20,7 @@ public class SolicitacaoController {
         List<SolicitacaoResponse> listaSolicitacao = solicitacaoService.findAll();
         if(listaSolicitacao.isEmpty())
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(listaSolicitacao,HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(listaSolicitacao, HttpStatus.ACCEPTED);
     }
 
 
@@ -64,8 +73,8 @@ public class SolicitacaoController {
 
     //find by Departamento //IMPLEMENTAR
     @RequestMapping(value="/departamento/{id_departamento}",method = RequestMethod.GET)
-    public ResponseEntity<List<SolicitacaoResponse>>findByDepartamento(@RequestParam int id_departamento){
-        List<SolicitacaoResponse> listaSolicitacao = solicitacaoService.findByTipoSolicitacao(id_departamento);
+    public ResponseEntity<List<SolicitacaoResponse>>findByDepartamento(@RequestParam Long id_departamento){
+        List<SolicitacaoResponse> listaSolicitacao = solicitacaoService.findByDepartamentoId(id_departamento);
         if(listaSolicitacao.isEmpty()){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

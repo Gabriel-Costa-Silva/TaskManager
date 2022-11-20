@@ -42,7 +42,7 @@ public class ComentarioSolicitacaoService {
         return listaComentarioResponse;
     }
 
-    }
+
 
     public ComentarioSolicitacaoResponse findComentrariopostagemById(Long idComentarioPostagem) {
         try{
@@ -63,7 +63,7 @@ public class ComentarioSolicitacaoService {
         }
     }
 
-    public void save(ComentarioSolicitacaoRequest request) {
+    public void save(ComentarioSolicitacaoRequest request)throws Exception {
         Usuario usuario = usuarioService.findById(request.getIdUsuario());
         Solicitacao solicitacao = solicitacaoService.findById(request.getIdSolicitacao());
 
@@ -84,7 +84,7 @@ public class ComentarioSolicitacaoService {
         List<ComentarioSolicitacaoResponse>  listaSolicitacaoResponse = new ArrayList<>();
         List<ComentarioSolicitacao> listaComentarioSolicitacao;
         try {
-            listaComentarioSolicitacao = ComentarioSolicitacaoRepository.findAllBySolicitacaoId(idSolicitacao);
+            listaComentarioSolicitacao = comentarioSolicitacaoRepository.findAllBySolicitacaoId(idSolicitacao);
         }catch(Exception e){
             return listaSolicitacaoResponse;
         }
@@ -108,7 +108,7 @@ public class ComentarioSolicitacaoService {
         List<ComentarioSolicitacaoResponse>  listaSolicitacaoResponse = new ArrayList<>();
         List<ComentarioSolicitacao> listaComentarioSolicitacao;
         try {
-            listaComentarioSolicitacao = ComentarioSolicitacaoRepository.findAllByUsuarioId(idUsuario);
+            listaComentarioSolicitacao = comentarioSolicitacaoRepository.findAllByUsuarioId(idUsuario);
         }catch(Exception e){
             return listaSolicitacaoResponse;
         }

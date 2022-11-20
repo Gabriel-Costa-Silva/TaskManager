@@ -1,6 +1,9 @@
 package br.com.TaskManager.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +11,9 @@ import java.util.Date;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "Solicitacao")
 public class Solicitacao implements Serializable
 {
@@ -17,10 +23,10 @@ public class Solicitacao implements Serializable
     private Long id_solicitacao;
 
     @Column(nullable = false, unique = false)
-    private int id_tipo_solicitacao;
+    private Long id_tipo_solicitacao;
 
     @Column(nullable = false, unique = false)
-    private int id_st_solicitacao;
+    private Long id_st_solicitacao;
 
     @Column(nullable = false, unique = false)
     private String ds_titulo_solicitacao;
@@ -37,13 +43,10 @@ public class Solicitacao implements Serializable
     private Usuario usuario; //id_solicitante_solicitacao
 
     @Column(nullable = false, unique = false)
-    private int id_responsavel_solicitacao;
+    private Long id_responsavel_solicitacao;
 
     @Column(nullable = false, unique = false)
-    private int id_prioridade;
-
-    @Column(nullable = false, unique = false)
-    private String labels;
+    private Long id_prioridade;
 
     @Column(nullable = false, unique = false)
     private Date dt_registro_solicitacao;
