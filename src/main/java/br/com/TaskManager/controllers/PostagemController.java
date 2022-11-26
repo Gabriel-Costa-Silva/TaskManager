@@ -74,7 +74,7 @@ public class PostagemController {
 
     //find by tipoSolicitacao
     @RequestMapping(value="/tiposolicitacao/{tipo_solicitacao}",method = RequestMethod.GET)
-    public ResponseEntity<List<PostagemResponse>>findByUsuario(@RequestParam int tipo_solicitacao){
+    public ResponseEntity<List<PostagemResponse>>findByTipoSolicitacao(@RequestParam Long tipo_solicitacao){
         List<PostagemResponse> listaPostagem = postagemService.findByTipoSolicitacao(tipo_solicitacao);
         if(listaPostagem.isEmpty()){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

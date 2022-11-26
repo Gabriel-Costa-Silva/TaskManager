@@ -12,4 +12,8 @@ public interface PostagemRepository extends JpaRepository<Postagem, Long> {
 
     @Query("select p from Postagem p where p.id_usuario = :id_usuario")
     List<Postagem> findAllByUsuarioId(@Param("id_usuario")Long id_usuario);
+
+    @Query("select p from Postagem p where p.tipo_solicitacao = :tipo_solicitacao")
+    List<Postagem> findByTipoSolicitacao(@Param("tipo_solicitacao")Long tipo_solicitacao);
+
 }

@@ -12,7 +12,6 @@ import java.util.Date;
 @Data
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "Solicitacao")
 public class Solicitacao implements Serializable

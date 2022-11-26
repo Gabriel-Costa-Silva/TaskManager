@@ -13,5 +13,5 @@ public interface ComentarioSolicitacaoRepository extends JpaRepository<Comentari
     @Query("select p from ComentarioSolicitacao p where p.id_solicitacao = :id_solicitacao")
     List<ComentarioSolicitacao> findAllBySolicitacaoId(@Param("id_solicitacao")Long id_solicitacao);
     @Query("select p from ComentarioSolicitacao p where p.id_usuario = :id_usuario")
-    List<ComentarioSolicitacao> findAllByUsuarioId(@Param("id_usuario")Long idUsuario);
+    List<ComentarioSolicitacao> findAllByUsuarioId(@Param("id_usuario")Long id_usuario);
 }

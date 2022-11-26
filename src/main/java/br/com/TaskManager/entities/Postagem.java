@@ -11,7 +11,6 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @RequiredArgsConstructor
 @Table(name = "Postagem")

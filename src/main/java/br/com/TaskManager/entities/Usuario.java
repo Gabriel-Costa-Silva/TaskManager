@@ -1,13 +1,17 @@
 package br.com.TaskManager.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "Funcao")
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "Usuario")
 public class Usuario implements Serializable
 {
     private static final long serialVersionUID = 1L;

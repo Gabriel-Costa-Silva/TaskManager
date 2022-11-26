@@ -75,6 +75,10 @@ public class FuncaoService {
         return listaFuncaoResponse;
 
     }
+    Funcao getFuncaoById(Long funcaoId){
+        return getFuncaoById(funcaoId);
+    }
+
 
 
 }

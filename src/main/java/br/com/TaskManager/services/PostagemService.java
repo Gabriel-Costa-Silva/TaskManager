@@ -115,4 +115,28 @@ public class PostagemService {
     }
 
 
+    public List<PostagemResponse> findByTipoSolicitacao(Long id_tipo_solicitacao) {
+        List<PostagemResponse>  listaPostagemResponse = new ArrayList<>();
+        List<Postagem> listaPostagem;
+        try {
+            listaPostagem = postagemRepository.findByTipoSolicitacao(id_tipo_solicitacao);
+        }catch(Exception e){
+            return listaPostagemResponse;
+        }
+        for(Postagem postagem : listaPostagem){
+
+            listaPostagemResponse.add(new PostagemResponse(
+                    postagem.getId_postagem(),
+                    postagem.getTipo_solicitacao(),
+                    postagem.getDs_titulo_postagem(),
+                    postagem.getTxt_postagem(),
+                    postagem.getUsuario().getId_usuario(),
+                    postagem.getDt_criacao_postagem(),
+                    postagem.getDt_ultima_atualizacao_postagem()
+            ));
+        }
+
+        return listaPostagemResponse;
+
+    }
 }
