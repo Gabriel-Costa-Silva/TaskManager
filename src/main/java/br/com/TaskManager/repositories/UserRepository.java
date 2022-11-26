@@ -12,9 +12,9 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<Users,Long> {
 
     //get
-    @Query("select u from Users u where u.nome = :nome and u.senha = :senha")
+    @Query("select u from Users u where nome = :nome and senha = :senha")
     Optional<Users> findUsersByNomeAndSenha (@Param("nome") String nome, @Param("senha") String senha);
-    @Query("select u from Users u where u.id = :id")
+    @Query("select u from Users u where id = :id")
     Optional<Users> findUsersById(@Param("id") Long id);
 
     //post

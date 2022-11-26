@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ComentarioPostagemRepository extends JpaRepository<ComentarioPostagem, Long> {
-    @Query("select p from ComentarioPostagem p where p.id_postagem = :id_postagem")
+    @Query("select p from ComentarioPostagem p where id_postagem = :id_postagem")
     List<ComentarioPostagem> findAllByPostagemId(@Param("id_postagem")Long idPostagem);
-    @Query("select p from ComentarioPostagem p where p.id_Usuario = :id_Usuario")
+    @Query("select p from ComentarioPostagem p where id_usuario = :id_usuario")
     List<ComentarioPostagem> findAllbyUsuarioId(@Param("id_usuario")Long idUsuario);
 }

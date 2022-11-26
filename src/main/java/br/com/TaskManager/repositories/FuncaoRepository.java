@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface FuncaoRepository extends JpaRepository<Funcao, Long> {
-    @Query("select f from Funcao f where f.id_departamento = :id_departamento")
+    @Query("select f from Funcao f where id_departamento = :id_departamento")
     List<Funcao> findByDepartamentoId(@Param("id_departamento")Long id_departamento);
 
 }
