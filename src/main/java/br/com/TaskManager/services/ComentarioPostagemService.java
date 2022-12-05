@@ -9,19 +9,23 @@ import br.com.TaskManager.repositories.ComentarioPostagemRepository;
 import br.com.TaskManager.repositories.UserRepository;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ComentarioPostagemService {
 
     @Autowired
     ComentarioPostagemRepository comentarioPostagemRepository;
 
+    @Autowired
     PostagemService postagemService;
 
+    @Autowired
     UsuarioService usuarioService;
 
     public List<ComentarioPostagemResponse> findAll() {

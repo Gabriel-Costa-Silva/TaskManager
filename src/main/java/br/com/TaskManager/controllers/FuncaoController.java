@@ -6,6 +6,7 @@ import br.com.TaskManager.controllers.response.ComentarioSolicitacaoResponse;
 import br.com.TaskManager.controllers.response.FuncaoResponse;
 import br.com.TaskManager.services.ComentarioSolicitacaoService;
 import br.com.TaskManager.services.FuncaoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequestMapping("/api/funcao")
 public class FuncaoController {
 
+    @Autowired
     FuncaoService funcaoService;
 
     //getAll
@@ -45,11 +47,11 @@ public class FuncaoController {
 
         try{
             funcaoService.save(request);
-            return new ResponseEntity<>("Comentario postado com sucesso", HttpStatus.ACCEPTED);
+            return new ResponseEntity<>("Funcao postado com sucesso", HttpStatus.ACCEPTED);
 
         }
         catch(Exception e){
-            return new ResponseEntity<>("Comentario não salvo", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Funcao não salva", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }

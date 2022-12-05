@@ -6,6 +6,7 @@ import br.com.TaskManager.controllers.response.FuncaoResponse;
 import br.com.TaskManager.controllers.response.UsuarioResponse;
 import br.com.TaskManager.entities.Usuario;
 import br.com.TaskManager.services.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class UsuarioController {
 
+    @Autowired
     UsuarioService usuarioService;
 
     //get

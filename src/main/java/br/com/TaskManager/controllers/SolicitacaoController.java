@@ -3,6 +3,7 @@ package br.com.TaskManager.controllers;
 import br.com.TaskManager.controllers.request.SolicitacaoRequest;
 import br.com.TaskManager.controllers.response.SolicitacaoResponse;
 import br.com.TaskManager.services.SolicitacaoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class SolicitacaoController {
 
-
+    @Autowired
     SolicitacaoService solicitacaoService;
 
     //getAll

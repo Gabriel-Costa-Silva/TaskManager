@@ -3,6 +3,7 @@ package br.com.TaskManager.controllers;
 import br.com.TaskManager.controllers.request.ComentarioPostagemRequest;
 import br.com.TaskManager.controllers.response.ComentarioPostagemResponse;
 import br.com.TaskManager.services.ComentarioPostagemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

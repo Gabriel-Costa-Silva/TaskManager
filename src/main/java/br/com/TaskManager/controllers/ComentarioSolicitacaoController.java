@@ -6,6 +6,7 @@ import br.com.TaskManager.controllers.response.ComentarioPostagemResponse;
 import br.com.TaskManager.controllers.response.ComentarioSolicitacaoResponse;
 import br.com.TaskManager.services.ComentarioPostagemService;
 import br.com.TaskManager.services.ComentarioSolicitacaoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequestMapping("/api/comentariosolicitacao")
 public class ComentarioSolicitacaoController {
 
+    @Autowired
     ComentarioSolicitacaoService comentarioSolicitacaoService;
 
     //getAll

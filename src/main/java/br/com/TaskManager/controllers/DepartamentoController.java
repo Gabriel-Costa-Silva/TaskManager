@@ -3,6 +3,7 @@ package br.com.TaskManager.controllers;
 import br.com.TaskManager.controllers.request.DepartamentoRequest;
 import br.com.TaskManager.entities.Departamento;
 import br.com.TaskManager.services.DepartamentoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/departamento ")
 public class DepartamentoController {
+    @Autowired
     DepartamentoService departamentoService;
 
     //get
@@ -36,7 +38,7 @@ public class DepartamentoController {
         return new ResponseEntity<>(departamento,HttpStatus.ACCEPTED);
     }
     //save
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value="/salvar",method = RequestMethod.POST)
     public ResponseEntity<String> createDepartamento(@RequestBody DepartamentoRequest departamentoRequest) {
         try {
             departamentoService.saveDepartamento(departamentoRequest);

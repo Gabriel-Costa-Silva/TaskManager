@@ -10,6 +10,7 @@ import br.com.TaskManager.repositories.ComentarioSolicitacaoRepository;
 import br.com.TaskManager.repositories.PostagemRepository;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PostagemService {
 
     @Autowired

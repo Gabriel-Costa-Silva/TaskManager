@@ -6,6 +6,7 @@ import br.com.TaskManager.controllers.response.FuncaoResponse;
 import br.com.TaskManager.controllers.response.PostagemResponse;
 import br.com.TaskManager.services.FuncaoService;
 import br.com.TaskManager.services.PostagemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 public class PostagemController {
+    @Autowired
     PostagemService postagemService;
 
     //getAll
