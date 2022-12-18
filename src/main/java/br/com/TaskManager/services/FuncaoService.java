@@ -21,6 +21,9 @@ public class FuncaoService {
     @Autowired
     FuncaoRepository funcaoRepository;
 
+    DepartamentoService departamentoService;
+
+
     public List<FuncaoResponse> findAll() {
         List<Funcao> listaFuncao = funcaoRepository.findAll();
         List<FuncaoResponse> listaFuncaoResponse = new ArrayList<>();
@@ -112,4 +115,10 @@ public class FuncaoService {
 
     }
 
+    public void put(Long idFuncao, FuncaoRequest funcaoRequest) throws Exception {
+        Funcao funcao = getFuncaoById(idFuncao);
+        funcao.setDs_funcao(funcaoRequest.getFuncao());
+        funcao.setDepartamento(departamentoService.findDepartamentoById(funcaoRequest.getId_departamento()));
+        funcaoRepository.save(funcao);
+    }
 }

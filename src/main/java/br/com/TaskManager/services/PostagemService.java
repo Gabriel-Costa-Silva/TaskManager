@@ -156,4 +156,16 @@ public class PostagemService {
 
 
     }
+
+    public void put(Long idPostagem, PostagemRequest postagemRequest)throws Exception  {
+        Postagem postagem = findPostagemById(idPostagem);
+        postagem.setDs_titulo_postagem(postagemRequest.getDs_titulo_postagem());
+        postagem.setDt_criacao_postagem(postagemRequest.getDt_criacao_postagem());
+        postagem.setTxt_postagem(postagemRequest.getTxt_postagem());
+        postagem.setDt_ultima_atualizacao_postagem(postagemRequest.getDt_ultima_atualizacao_postagem());
+        postagem.setTipo_solicitacao(postagemRequest.getTipo_solicitacao());
+        postagem.setUsuario(usuarioService.findById(postagemRequest.getId_usuario()));
+        postagemRepository.save(postagem);
+
+    }
 }

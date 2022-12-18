@@ -2,6 +2,7 @@ package br.com.TaskManager.controllers;
 
 import br.com.TaskManager.controllers.request.ComentarioSolicitacaoRequest;
 import br.com.TaskManager.controllers.request.FuncaoRequest;
+import br.com.TaskManager.controllers.request.PostagemRequest;
 import br.com.TaskManager.controllers.response.ComentarioSolicitacaoResponse;
 import br.com.TaskManager.controllers.response.FuncaoResponse;
 import br.com.TaskManager.services.ComentarioSolicitacaoService;
@@ -75,6 +76,22 @@ public class FuncaoController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(listaFuncoes,HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping(value="/{idFuncao}")
+    public ResponseEntity<String>putFuncao(@PathVariable("idFuncao") Long idFuncao,@RequestBody FuncaoRequest funcaoRequest) {
+        if (funcaoService.exists(idFuncao)) {
+            try {
+                funcaoService.put(idFuncao, funcaoRequest);
+                return new ResponseEntity<>("Funcao salva com sucesso", HttpStatus.ACCEPTED);
+
+            } catch (Exception e) {
+                return new ResponseEntity<>("erro,funcao não salva", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<>("Funcao não encontrada", HttpStatus.NOT_FOUND);
+
     }
 
 

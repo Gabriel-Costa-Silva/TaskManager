@@ -2,6 +2,7 @@ package br.com.TaskManager.controllers;
 
 import br.com.TaskManager.controllers.request.FuncaoRequest;
 import br.com.TaskManager.controllers.request.PostagemRequest;
+import br.com.TaskManager.controllers.request.SolicitacaoRequest;
 import br.com.TaskManager.controllers.response.FuncaoResponse;
 import br.com.TaskManager.controllers.response.PostagemResponse;
 import br.com.TaskManager.services.FuncaoService;
@@ -82,6 +83,22 @@ public class PostagemController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(listaPostagem,HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping(value="/{idPostagem}")
+    public ResponseEntity<String>putPostagem(@PathVariable("idPostagem") Long idPostagem,@RequestBody PostagemRequest postagemRequest) {
+        if (postagemService.exists(idPostagem)) {
+            try {
+                postagemService.put(idPostagem, postagemRequest);
+                return new ResponseEntity<>("Postagem salva com sucesso", HttpStatus.ACCEPTED);
+
+            } catch (Exception e) {
+                return new ResponseEntity<>("erro,postagem não salva", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<>("Postagem não encontrada", HttpStatus.NOT_FOUND);
+
     }
 
 }

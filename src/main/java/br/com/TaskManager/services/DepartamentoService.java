@@ -54,4 +54,10 @@ public class DepartamentoService {
 
     }
 
+    public void put(Long idDepartamento, DepartamentoRequest departamentoRequest) {
+        Departamento departamento = findDepartamentoById(idDepartamento);
+        departamento.setDs_departamento(departamentoRequest.getDepartamento());
+        departamentoRepository.save(departamento);
+
+    }
 }

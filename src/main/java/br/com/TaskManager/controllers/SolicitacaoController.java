@@ -83,7 +83,7 @@ public class SolicitacaoController {
     }
 
     @PutMapping(value="/{idSolicitacao}")
-    public ResponseEntity<String>putSolicitacao(@PathVariable("id") Long idSolicitacao,@RequestBody SolicitacaoRequest solicitacaoRequest) {
+    public ResponseEntity<String>putSolicitacao(@PathVariable("idSolicitacao") Long idSolicitacao,@RequestBody SolicitacaoRequest solicitacaoRequest) {
         if (solicitacaoService.exists(idSolicitacao)) {
             try {
                 solicitacaoService.put(idSolicitacao, solicitacaoRequest);

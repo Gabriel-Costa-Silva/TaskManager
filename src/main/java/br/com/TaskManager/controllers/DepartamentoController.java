@@ -1,6 +1,7 @@
 package br.com.TaskManager.controllers;
 
 import br.com.TaskManager.controllers.request.DepartamentoRequest;
+import br.com.TaskManager.controllers.request.FuncaoRequest;
 import br.com.TaskManager.entities.Departamento;
 import br.com.TaskManager.services.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,22 @@ public class DepartamentoController {
         }catch (Exception e){
             return new ResponseEntity<>("Houve um erro", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    //put
+    @PutMapping(value="/{idDepartamento}")
+    public ResponseEntity<String>putDepartamento(@PathVariable("idDepartamento") Long idDepartamento,@RequestBody DepartamentoRequest departamentoRequest) {
+        if (departamentoService.exists(idDepartamento)) {
+            try {
+                departamentoService.put(idDepartamento, departamentoRequest);
+                return new ResponseEntity<>("Departamento salvo com sucesso", HttpStatus.ACCEPTED);
+
+            } catch (Exception e) {
+                return new ResponseEntity<>("erro,departamento não salvo", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<>("Departamento não encontrado", HttpStatus.NOT_FOUND);
+
     }
 }
