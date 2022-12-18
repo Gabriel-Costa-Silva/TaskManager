@@ -6,6 +6,8 @@ import br.com.TaskManager.entities.Departamento;
 import br.com.TaskManager.entities.Funcao;
 import br.com.TaskManager.entities.Usuario;
 import br.com.TaskManager.repositories.UsuarioRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ import java.util.Optional;
 
 @Service
 public class UsuarioService {
+
+    Logger logger = LoggerFactory.getLogger(UsuarioService.class);
+
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -76,5 +81,31 @@ public class UsuarioService {
 
 
     }
+
+    public void put(Long id,UsuarioRequest usuarioRequest)throws Exception{
+
+        if(exists(id)){
+            usuarioRepository.save(requestToEntity(usuarioRequest));
+        }
+    }
+
+    public boolean exists (Long id) {
+        try {
+            return usuarioRepository.existsById(id);
+        }catch(Exception e){
+            logger.error("Erro ao verificar usuário");
+            return false;
+        }
+    }
+    private  Usuario requestToEntity(UsuarioRequest usuarioRequest)
+    {
+        return new Usuario(null,
+                usuarioRequest.getNm_usuario(),
+                funcaoService.getFuncaoById(usuarioRequest.getFuncao_id()),
+                departamentoService.findDepartamentoById(usuarioRequest.getDepartamento_id()),
+                usuarioRequest.getTipo_usuario());
+    }
+
+
 
 }

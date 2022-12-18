@@ -33,7 +33,7 @@ public class FuncaoController {
     //findById
     @RequestMapping(value = "/{idFuncao}",method = RequestMethod.GET)
     ResponseEntity<FuncaoResponse> findFuncaoById(@RequestParam Long idFuncao){
-        FuncaoResponse funcaoResponse = funcaoService.findFuncaoById(idFuncao);
+        FuncaoResponse funcaoResponse = funcaoService.findFuncaoResponseById(idFuncao);
         if(funcaoResponse==null) {
             return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
         }

@@ -9,6 +9,8 @@ import br.com.TaskManager.entities.Usuario;
 import br.com.TaskManager.repositories.ComentarioSolicitacaoRepository;
 import br.com.TaskManager.repositories.PostagemRepository;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,20 +26,22 @@ import java.util.Optional;
 @Service
 public class PostagemService {
 
+    Logger logger = LoggerFactory.getLogger(PostagemService.class);
+
     @Autowired
     PostagemRepository postagemRepository;
 
     UsuarioService usuarioService;
 
     public List<PostagemResponse> findAll() {
-        List<PostagemResponse>  listaPostagemResponse = new ArrayList<>();
-        List<Postagem> listaPostagem = new ArrayList<>() ;
+        List<PostagemResponse> listaPostagemResponse = new ArrayList<>();
+        List<Postagem> listaPostagem = new ArrayList<>();
         try {
             listaPostagem = postagemRepository.findAll();
-        }catch(Exception e){
+        } catch (Exception e) {
             return listaPostagemResponse;
         }
-        for(Postagem postagem : listaPostagem){
+        for (Postagem postagem : listaPostagem) {
             listaPostagemResponse.add(new PostagemResponse(
                     postagem.getId_postagem(),
                     postagem.getTipo_solicitacao(),
@@ -52,9 +56,9 @@ public class PostagemService {
         return listaPostagemResponse;
     }
 
-    public Postagem findPostagemById(Long idPostagem){
+    public Postagem findPostagemById(Long idPostagem) {
         Optional<Postagem> postagem = postagemRepository.findById(idPostagem);
-        if(postagem.isEmpty()){
+        if (postagem.isEmpty()) {
             return null;
         }
         return postagem.get();
@@ -62,7 +66,7 @@ public class PostagemService {
 
     public PostagemResponse findPostagemResponseById(Long idPostagem) {
         Optional<Postagem> postagem = postagemRepository.findById(idPostagem);
-        if(postagem.isEmpty()){
+        if (postagem.isEmpty()) {
             return null;
         }
         return new PostagemResponse(
@@ -87,19 +91,19 @@ public class PostagemService {
         ));
     }
 
-    public void delete(Long idPostagem) throws Exception{
+    public void delete(Long idPostagem) throws Exception {
         postagemRepository.deleteById(idPostagem);
     }
 
     public List<PostagemResponse> findByUsuarioId(Long idUsuario) {
-        List<PostagemResponse>  listaPostagemResponse = new ArrayList<>();
+        List<PostagemResponse> listaPostagemResponse = new ArrayList<>();
         List<Postagem> listaPostagem;
         try {
             listaPostagem = postagemRepository.findAllByUsuarioId(idUsuario);
-        }catch(Exception e){
+        } catch (Exception e) {
             return listaPostagemResponse;
         }
-        for(Postagem postagem : listaPostagem){
+        for (Postagem postagem : listaPostagem) {
 
             listaPostagemResponse.add(new PostagemResponse(
                     postagem.getId_postagem(),
@@ -118,14 +122,14 @@ public class PostagemService {
 
 
     public List<PostagemResponse> findByTipoSolicitacao(Long id_tipo_solicitacao) {
-        List<PostagemResponse>  listaPostagemResponse = new ArrayList<>();
+        List<PostagemResponse> listaPostagemResponse = new ArrayList<>();
         List<Postagem> listaPostagem;
         try {
             listaPostagem = postagemRepository.findByTipoSolicitacao(id_tipo_solicitacao);
-        }catch(Exception e){
+        } catch (Exception e) {
             return listaPostagemResponse;
         }
-        for(Postagem postagem : listaPostagem){
+        for (Postagem postagem : listaPostagem) {
 
             listaPostagemResponse.add(new PostagemResponse(
                     postagem.getId_postagem(),
@@ -139,6 +143,17 @@ public class PostagemService {
         }
 
         return listaPostagemResponse;
+
+    }
+
+    public boolean exists(Long id) {
+        try {
+            return postagemRepository.existsById(id);
+        } catch (Exception e) {
+            logger.error("Erro ao verificar postagem");
+            return false;
+        }
+
 
     }
 }

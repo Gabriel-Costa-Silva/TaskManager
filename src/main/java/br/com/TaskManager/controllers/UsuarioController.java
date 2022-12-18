@@ -67,7 +67,11 @@ public class UsuarioController {
         if(updateUser==null){
             return new ResponseEntity<>( "User não encontrado!",HttpStatus.NOT_FOUND);
         }
-
+        try{
+            usuarioService.put(id,userRequest);
+        }catch (Exception e ){
+            return new ResponseEntity<>("Usuario não salvo corretamente",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<>( "usuario salvo!",HttpStatus.ACCEPTED);
 
     }

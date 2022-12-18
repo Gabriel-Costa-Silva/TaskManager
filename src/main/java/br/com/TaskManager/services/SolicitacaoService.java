@@ -10,6 +10,8 @@ import br.com.TaskManager.repositories.ComentarioSolicitacaoRepository;
 import br.com.TaskManager.repositories.PostagemRepository;
 import br.com.TaskManager.repositories.SolicitacaoRepository;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ import java.util.Optional;
 
 @Service
 public class SolicitacaoService {
+
+    Logger logger = LoggerFactory.getLogger(SolicitacaoService.class);
 
     @Autowired
     SolicitacaoRepository solicitacaoRepository;
@@ -168,5 +172,17 @@ solicitacaoRepository.count()+1,
             return null;
         }
         return solicitacao.get();
+    }
+
+    public void put(Long idSolicitacao,SolicitacaoRequest solicitacaoRequest) {
+    }
+
+    public boolean exists (Long id) {
+        try {
+            return solicitacaoRepository.existsById(id);
+        }catch(Exception e){
+            logger.error("Erro ao verificar solicitacao");
+            return false;
+        }
     }
 }

@@ -5,6 +5,8 @@ import br.com.TaskManager.controllers.response.ComentarioPostagemResponse;
 import br.com.TaskManager.controllers.response.ComentarioSolicitacaoResponse;
 import br.com.TaskManager.entities.*;
 import br.com.TaskManager.repositories.ComentarioSolicitacaoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ import java.util.Optional;
 @Service
 public class ComentarioSolicitacaoService {
 
+    Logger logger = LoggerFactory.getLogger(ComentarioSolicitacaoService.class);
+
+
     SolicitacaoService solicitacaoService;
 
     UsuarioService usuarioService;
@@ -23,16 +28,16 @@ public class ComentarioSolicitacaoService {
     ComentarioSolicitacaoRepository comentarioSolicitacaoRepository;
 
     public List<ComentarioSolicitacaoResponse> findAll() {
-        List<ComentarioSolicitacaoResponse>  listaComentarioResponse = new ArrayList<>();
-        List<ComentarioSolicitacao> listaComentario ;
+        List<ComentarioSolicitacaoResponse> listaComentarioResponse = new ArrayList<>();
+        List<ComentarioSolicitacao> listaComentario;
         try {
             listaComentario = comentarioSolicitacaoRepository.findAll();
-        }catch(Exception e){
+        } catch (Exception e) {
             return listaComentarioResponse;
         }
-        for(ComentarioSolicitacao comentarioPostagem : listaComentario){
+        for (ComentarioSolicitacao comentarioPostagem : listaComentario) {
             listaComentarioResponse.add(new ComentarioSolicitacaoResponse(
-                    comentarioPostagem.getId_comentario_solicitacao() ,
+                    comentarioPostagem.getId_comentario_solicitacao(),
                     comentarioPostagem.getSolicitacao().getId_solicitacao(),
                     comentarioPostagem.getTxt_comentario_solicitacao(),
                     comentarioPostagem.getUsuario().getId_usuario(),
@@ -45,12 +50,11 @@ public class ComentarioSolicitacaoService {
     }
 
 
-
     public ComentarioSolicitacaoResponse findComentrariopostagemById(Long idComentarioPostagem) {
-        try{
+        try {
             Optional<ComentarioSolicitacao> comentarioPostagem = comentarioSolicitacaoRepository.findById(idComentarioPostagem);
-            if(comentarioPostagem.isPresent()){
-                return  new ComentarioSolicitacaoResponse(
+            if (comentarioPostagem.isPresent()) {
+                return new ComentarioSolicitacaoResponse(
                         comentarioPostagem.get().getId_comentario_solicitacao(),
                         comentarioPostagem.get().getSolicitacao().getId_solicitacao(),
                         comentarioPostagem.get().getTxt_comentario_solicitacao(),
@@ -60,12 +64,12 @@ public class ComentarioSolicitacaoService {
                 );
             }
             return null;
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public void save(ComentarioSolicitacaoRequest request)throws Exception {
+    public void save(ComentarioSolicitacaoRequest request) throws Exception {
         Usuario usuario = usuarioService.findById(request.getIdUsuario());
         Solicitacao solicitacao = solicitacaoService.findById(request.getIdSolicitacao());
 
@@ -83,17 +87,17 @@ public class ComentarioSolicitacaoService {
     }
 
     public List<ComentarioSolicitacaoResponse> findBySolicitacaoId(Long idSolicitacao) {
-        List<ComentarioSolicitacaoResponse>  listaSolicitacaoResponse = new ArrayList<>();
+        List<ComentarioSolicitacaoResponse> listaSolicitacaoResponse = new ArrayList<>();
         List<ComentarioSolicitacao> listaComentarioSolicitacao;
         try {
             listaComentarioSolicitacao = comentarioSolicitacaoRepository.findAllBySolicitacaoId(idSolicitacao);
-        }catch(Exception e){
+        } catch (Exception e) {
             return listaSolicitacaoResponse;
         }
-        for(ComentarioSolicitacao comentarioSolicitacao : listaComentarioSolicitacao){
+        for (ComentarioSolicitacao comentarioSolicitacao : listaComentarioSolicitacao) {
 
             listaSolicitacaoResponse.add(new ComentarioSolicitacaoResponse(
-                    comentarioSolicitacao.getId_comentario_solicitacao() ,
+                    comentarioSolicitacao.getId_comentario_solicitacao(),
                     comentarioSolicitacao.getSolicitacao().getId_solicitacao(),
                     comentarioSolicitacao.getTxt_comentario_solicitacao(),
                     comentarioSolicitacao.getUsuario().getId_usuario(),
@@ -107,17 +111,17 @@ public class ComentarioSolicitacaoService {
     }
 
     public List<ComentarioSolicitacaoResponse> findByUsuarioId(Long idUsuario) {
-        List<ComentarioSolicitacaoResponse>  listaSolicitacaoResponse = new ArrayList<>();
+        List<ComentarioSolicitacaoResponse> listaSolicitacaoResponse = new ArrayList<>();
         List<ComentarioSolicitacao> listaComentarioSolicitacao;
         try {
             listaComentarioSolicitacao = comentarioSolicitacaoRepository.findAllByUsuarioId(idUsuario);
-        }catch(Exception e){
+        } catch (Exception e) {
             return listaSolicitacaoResponse;
         }
-        for(ComentarioSolicitacao comentarioSolicitacao : listaComentarioSolicitacao){
+        for (ComentarioSolicitacao comentarioSolicitacao : listaComentarioSolicitacao) {
 
             listaSolicitacaoResponse.add(new ComentarioSolicitacaoResponse(
-                    comentarioSolicitacao.getId_comentario_solicitacao() ,
+                    comentarioSolicitacao.getId_comentario_solicitacao(),
                     comentarioSolicitacao.getSolicitacao().getId_solicitacao(),
                     comentarioSolicitacao.getTxt_comentario_solicitacao(),
                     comentarioSolicitacao.getUsuario().getId_usuario(),
@@ -127,5 +131,15 @@ public class ComentarioSolicitacaoService {
         }
 
         return listaSolicitacaoResponse;
+    }
+
+    public boolean exists(Long id) {
+        try {
+            return comentarioSolicitacaoRepository.existsById(id);
+        } catch (Exception e) {
+            logger.error("Erro ao verificar comentario de solicitacao");
+            return false;
+        }
+
     }
 }

@@ -7,6 +7,8 @@ import br.com.TaskManager.entities.Departamento;
 import br.com.TaskManager.entities.Users;
 import br.com.TaskManager.repositories.DepartamentoRepository;
 import br.com.TaskManager.repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,9 @@ import java.util.Optional;
 
 @Service
 public class DepartamentoService {
+
+    Logger logger = LoggerFactory.getLogger(DepartamentoService.class);
+
 
     @Autowired
     DepartamentoRepository departamentoRepository;
@@ -38,6 +43,15 @@ public class DepartamentoService {
     public void deleteDepartamento(Long id) throws Exception{
         departamentoRepository.deleteById(id);
     }
+    public boolean exists (Long id) {
+        try {
+            return departamentoRepository.existsById(id);
+        } catch (Exception e) {
+            logger.error("Erro ao verificar se departamento existe");
+            return false;
+        }
 
+
+    }
 
 }

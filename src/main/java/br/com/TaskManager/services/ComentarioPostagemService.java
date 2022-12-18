@@ -8,6 +8,8 @@ import br.com.TaskManager.entities.Usuario;
 import br.com.TaskManager.repositories.ComentarioPostagemRepository;
 import br.com.TaskManager.repositories.UserRepository;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ import java.util.Optional;
 @Service
 public class ComentarioPostagemService {
 
+    Logger logger = LoggerFactory.getLogger(ComentarioPostagemService.class);
+
+
     @Autowired
     ComentarioPostagemRepository comentarioPostagemRepository;
 
@@ -29,33 +34,33 @@ public class ComentarioPostagemService {
     UsuarioService usuarioService;
 
     public List<ComentarioPostagemResponse> findAll() {
-        List<ComentarioPostagemResponse>  listaComentarioResponse = new ArrayList<>();
+        List<ComentarioPostagemResponse> listaComentarioResponse = new ArrayList<>();
         List<ComentarioPostagem> listaComentario = new ArrayList<>();
         try {
             listaComentario = comentarioPostagemRepository.findAll();
-        }catch(Exception e){
+        } catch (Exception e) {
             return listaComentarioResponse;
         }
-        for(ComentarioPostagem comentarioPostagem : listaComentario){
+        for (ComentarioPostagem comentarioPostagem : listaComentario) {
             listaComentarioResponse.add(new ComentarioPostagemResponse(
-                    comentarioPostagem.getId_comentario_postagem() ,
+                    comentarioPostagem.getId_comentario_postagem(),
                     comentarioPostagem.getPostagem().getId_postagem(),
                     comentarioPostagem.getTxt_comentario_postagem(),
                     comentarioPostagem.getUsuario().getId_usuario(),
                     comentarioPostagem.getDt_criacao_comentario_postagem(),
                     comentarioPostagem.getDt_ultima_atualizacao_comentario_postagem()
-                    ));
+            ));
         }
 
         return listaComentarioResponse;
     }
 
     public ComentarioPostagemResponse findComentrariopostagemById(Long idComentarioPostagem) {
-        try{
+        try {
             Optional<ComentarioPostagem> comentarioPostagem = comentarioPostagemRepository.findById(idComentarioPostagem);
-            if(comentarioPostagem.isPresent()){
-                return  new ComentarioPostagemResponse(
-                        comentarioPostagem.get().getId_comentario_postagem() ,
+            if (comentarioPostagem.isPresent()) {
+                return new ComentarioPostagemResponse(
+                        comentarioPostagem.get().getId_comentario_postagem(),
                         comentarioPostagem.get().getPostagem().getId_postagem(),
                         comentarioPostagem.get().getTxt_comentario_postagem(),
                         comentarioPostagem.get().getUsuario().getId_usuario(),
@@ -64,7 +69,7 @@ public class ComentarioPostagemService {
                 );
             }
             return null;
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
@@ -84,21 +89,21 @@ public class ComentarioPostagemService {
 
     }
 
-    public void delete(Long idComentarioPostagem) throws Exception{
+    public void delete(Long idComentarioPostagem) throws Exception {
         comentarioPostagemRepository.deleteById(idComentarioPostagem);
     }
 
     public List<ComentarioPostagemResponse> findByPostagemId(Long idPostagem) {
-        List<ComentarioPostagemResponse>  listaComentarioResponse = new ArrayList<>();
+        List<ComentarioPostagemResponse> listaComentarioResponse = new ArrayList<>();
         List<ComentarioPostagem> listaComentario = new ArrayList<>();
         try {
             listaComentario = comentarioPostagemRepository.findAllByPostagemId(idPostagem);
-        }catch(Exception e){
+        } catch (Exception e) {
             return listaComentarioResponse;
         }
-        for(ComentarioPostagem comentarioPostagem : listaComentario){
+        for (ComentarioPostagem comentarioPostagem : listaComentario) {
             listaComentarioResponse.add(new ComentarioPostagemResponse(
-                    comentarioPostagem.getId_comentario_postagem() ,
+                    comentarioPostagem.getId_comentario_postagem(),
                     comentarioPostagem.getPostagem().getId_postagem(),
                     comentarioPostagem.getTxt_comentario_postagem(),
                     comentarioPostagem.getUsuario().getId_usuario(),
@@ -112,16 +117,16 @@ public class ComentarioPostagemService {
     }
 
     public List<ComentarioPostagemResponse> findByUsuarioId(Long idUsuario) {
-        List<ComentarioPostagemResponse>  listaComentarioResponse = new ArrayList<>();
+        List<ComentarioPostagemResponse> listaComentarioResponse = new ArrayList<>();
         List<ComentarioPostagem> listaComentario;
         try {
             listaComentario = comentarioPostagemRepository.findAllbyUsuarioId(idUsuario);
-        }catch(Exception e){
+        } catch (Exception e) {
             return listaComentarioResponse;
         }
-        for(ComentarioPostagem comentarioPostagem : listaComentario){
+        for (ComentarioPostagem comentarioPostagem : listaComentario) {
             listaComentarioResponse.add(new ComentarioPostagemResponse(
-                    comentarioPostagem.getId_comentario_postagem() ,
+                    comentarioPostagem.getId_comentario_postagem(),
                     comentarioPostagem.getPostagem().getId_postagem(),
                     comentarioPostagem.getTxt_comentario_postagem(),
                     comentarioPostagem.getUsuario().getId_usuario(),
@@ -131,5 +136,15 @@ public class ComentarioPostagemService {
         }
 
         return listaComentarioResponse;
+    }
+
+    public boolean exists(Long id) {
+        try {
+            return comentarioPostagemRepository.existsById(id);
+        } catch (Exception e) {
+            logger.error("Erro ao verificar comentario de postagem");
+            return false;
+        }
+
     }
 }

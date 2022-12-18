@@ -82,4 +82,21 @@ public class SolicitacaoController {
         return new ResponseEntity<>(listaSolicitacao,HttpStatus.ACCEPTED);
     }
 
+    @PutMapping(value="/{idSolicitacao}")
+    public ResponseEntity<String>putSolicitacao(@PathVariable("id") Long idSolicitacao,@RequestBody SolicitacaoRequest solicitacaoRequest) {
+        if (solicitacaoService.exists(idSolicitacao)) {
+            try {
+                solicitacaoService.put(idSolicitacao, solicitacaoRequest);
+                return new ResponseEntity<>("Solicitacao salva com sucesso", HttpStatus.ACCEPTED);
+
+            } catch (Exception e) {
+                return new ResponseEntity<>("erro,solicitacao não salva", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<>("Usuario não encontrado", HttpStatus.NOT_FOUND);
+
+    }
+
+
 }
